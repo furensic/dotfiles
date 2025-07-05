@@ -19,7 +19,7 @@ done
 
 ### install docker ###
 echo "removing old docker versions if applicable"
-sudo dnf remove docker \
+sudo dnf remove -y docker \
                   docker-client \
                   docker-client-latest \
                   docker-common \
@@ -35,7 +35,7 @@ sudo dnf -y install dnf-plugins-core
 sudo dnf-3 config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
 
 echo "installing docker via dnf"
-sudo dnf install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+sudo dnf install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 echo "enabling docker daemon"
 sudo systemctl enable --now docker
