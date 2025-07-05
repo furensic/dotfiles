@@ -88,3 +88,12 @@ fi
 ### copy .zshrc file to user home ###
 cp .zshrc ~/.zshrc
 cp .zshprofile ~/.zshprofile
+
+
+### install Hasklig font ###
+wget https://github.com/ryanoasis/nerd-fonts/releases/download/v3.4.0/Hasklig.zip
+
+unzip Hasklig.zip
+mv Hasklig /usr/local/share/fonts/Hasklig
+
+sudo fc-cache -v
