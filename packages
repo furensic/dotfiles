@@ -11,3 +11,4 @@ fzf
 curl
 wget
 nano
+direnv

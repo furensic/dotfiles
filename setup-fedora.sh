@@ -86,5 +86,5 @@ else
 fi
 
 ### copy .zshrc file to user home ###
-cp ./.zshrc ~/.zshrc
-cp ./.zshprofile ~/.zshprofile
+cp .zshrc ~/.zshrc
+cp .zshprofile ~/.zshprofile
