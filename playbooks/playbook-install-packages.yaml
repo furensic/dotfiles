@@ -1,0 +1,41 @@
+- name: Install basic required packages for fedora linux
+  hosts: all
+  become: yes
+  tasks:
+    - name: Install packages
+      ansible.builtin.dnf:
+        name:
+          - zsh
+          - lsd
+          - fastfetch
+          - htop
+          - iftop
+          - vim
+          - tmux
+          - git
+          - duf
+          - fzf
+          - curl
+          - wget
+          - nano
+          - direnv
+        state: present
+
+    - name: Download Dust archive
+      ansible.builtin.command:
+        cmd: wget -O /tmp/dust.tar.gz https://github.com/bootandy/dust/releases/download/v1.2.1/dust-v1.2.1-x86_64-unknown-linux-gnu.tar.gz
+
+    - name: Create a new folder for extraction of Dust
+      ansible.builtin.file:
+        path: /tmp/dust
+        state: directory
+        mode: '0755'
+
+    - name: Extract Dust binary
+      ansible.builtin.command:
+        cmd: tar -xf /tmp/dust.tar.gz -C /tmp/dust --strip-components=1
+
+    - name: Move Dust binary into /bin
+      ansible.builtin.command:
+        cmd: mv /tmp/dust/dust /bin/dust
+      become: yes
