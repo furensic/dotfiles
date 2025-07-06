@@ -4,21 +4,6 @@
     - secret
   become: yes
   tasks:
-    - name: Remove old docker versions if present
-      ansible.builtin.dnf:
-        name:
-          - docker
-          - docker-client
-          - docker-client-latest
-          - docker-common
-          - docker-latest
-          - docker-latest-logrotate
-          - docker-logrotate
-          - docker-selinux
-          - docker-engine-selinux
-          - docker-engine
-        state: absent
-
     - name: Download the docker .repo file
       ansible.builtin.get_url:
         url: https://download.docker.com/linux/fedora/docker-ce.repo

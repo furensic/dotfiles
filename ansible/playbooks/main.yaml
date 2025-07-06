@@ -1,0 +1,4 @@
+# ansible/playbooks/main.yaml
+---
+- import_playbook: playbook-docker.yaml
+- import_playbook: playbook.yaml
