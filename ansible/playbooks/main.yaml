@@ -3,3 +3,4 @@
 - import_playbook: playbook-install-packages.yaml
 - import_playbook: playbook-install-dust.yaml
 - import_playbook: playbook-docker.yaml
+- import_playbook: playbook-zsh-plugins.yaml

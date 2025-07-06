@@ -1,0 +1,12 @@
+- name: Clone zsh plugins from git
+  hosts: all
+  tasks:
+    - name: Clone zsh-autosuggestions
+      ansible.builtin.git:
+        repo: "https://github.com/zsh-users/zsh-autosuggestions"
+        dest: ~/.zsh/zsh-autosuggestions
+
+    - name: Clone zsh-syntax-highlighting
+      ansible.builtin.git:
+        repo: "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+        dest: ~/.zsh/zsh-syntax-highlighting
