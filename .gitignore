@@ -1,3 +1,4 @@
 .vscode
 ansible/secret
 ansible/inventory.ini
+secret*
