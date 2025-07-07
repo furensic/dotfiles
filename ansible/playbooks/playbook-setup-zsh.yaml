@@ -6,6 +6,11 @@
         src: ../../on-client/.zshrc
         dest: ~/.zshrc
 
+    - name: Clone .zshprofile config to remote
+      ansible.builtin.copy:
+        src: ../../on-client/.zshprofile
+        dest: ~/.zshprofile
+
     - name: Change shell to zsh
       ansible.builtin.user:
         name: leo
