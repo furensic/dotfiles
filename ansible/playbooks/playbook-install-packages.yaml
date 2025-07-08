@@ -5,6 +5,7 @@
   vars:
     packages_to_install:
       - zsh
+      - lsd
       - fastfetch
       - htop
       - iftop
