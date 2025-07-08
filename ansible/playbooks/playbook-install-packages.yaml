@@ -1,28 +1,17 @@
 - name: Install basic required packages for fedora linux
-  hosts: all
-  become: yes
-
-  vars:
-    packages_to_install:
-      - zsh
-      - lsd
-      - fastfetch
-      - htop
-      - iftop
-      - vim
-      - tmux
-      - git
-      - duf
-      - fzf
-      - curl
-      - wget
-      - nano
-      - direnv
-      - tldr
-
-  tasks:
-    - name: "Installing packages"
-      ansible.builtin.dnf:
-        name: "{{ item  }}"
-        state: present
-      loop: "{{ packages_to_install }}"
+  ansible.builtin.include_tasks: "{{ item  }}"
+  loop:
+    - "package-installation/zsh-installation.yaml"
+    - "package-installation/lsd-installation.yaml"
+    - "package-installation/fastfetch-installation.yaml"
+    - "package-installation/htop-installation.yaml"
+    - "package-installation/iftop-installation.yaml"
+    - "package-installation/vim-installation.yaml"
+    - "package-installation/tmux-installation.yaml"
+    - "package-installation/duf-installation.yaml"
+    - "package-installation/fzf-installation.yaml"
+    - "package-installation/curl-installation.yaml"
+    - "package-installation/wget-installation.yaml"
+    - "package-installation/nano-installation.yaml"
+    - "package-installation/direnv-installation.yaml"
+    - "package-installation/tldr-installation.yaml"

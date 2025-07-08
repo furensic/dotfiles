@@ -1,0 +1,5 @@
+- name: Install tldr
+  package:
+    name: tldr
+    state: present
+  when: ansible_pkg_mgr == 'dnf5'

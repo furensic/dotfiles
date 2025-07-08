@@ -1,0 +1,5 @@
+- name: Install duf
+  package:
+    name: duf
+    state: present
+  when: ansible_pkg_mgr == 'dnf5'

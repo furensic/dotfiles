@@ -1,0 +1,5 @@
+- name: Install curl
+  package:
+    name: curl
+    state: present
+  when: ansible_pkg_mgr == 'dnf5'

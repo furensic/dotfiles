@@ -1,0 +1,5 @@
+- name: Install direnv
+  package:
+    name: direnv
+    state: present
+  when: ansible_pkg_mgr == 'dnf5'

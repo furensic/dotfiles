@@ -1,8 +1,12 @@
 # ansible/playbooks/main.yaml
----
-- import_playbook: playbook-install-packages.yaml
-- import_playbook: playbook-install-dust.yaml
-- import_playbook: playbook-docker.yaml
-- import_playbook: playbook-zsh-plugins.yaml
-- import_playbook: playbook-setup-zsh.yaml
-- import_playbook: playbook-update-tldr-cache.yaml
+- name: Main playbook for system configuration
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Print pkg mgr variable
+      ansible.builtin.debug:
+        var: ansible_pkg_mgr
+
+    - name: Install packages
+      ansible.builtin.include_tasks: "playbook-install-packages.yaml"

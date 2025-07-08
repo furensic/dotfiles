@@ -1,0 +1,5 @@
+- name: Install iftop
+  package:
+    name: iftop
+    state: present
+  when: ansible_pkg_mgr == 'dnf5'
