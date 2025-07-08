@@ -3,3 +3,29 @@
     name: zsh
     state: present
   when: ansible_pkg_mgr == 'dnf5'
+
+- name: Clone zsh-autosuggestions
+  ansible.builtin.git:
+    repo: "https://github.com/zsh-users/zsh-autosuggestions"
+    dest: ~/.zsh/zsh-autosuggestions
+
+- name: Clone zsh-syntax-highlighting
+  ansible.builtin.git:
+    repo: "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+    dest: ~/.zsh/zsh-syntax-highlighting
+
+- name: Clone .zshrc config to remote
+  ansible.builtin.copy:
+    src: ../../on-client/.zshrc
+    dest: ~/.zshrc
+
+- name: Clone .zshprofile config to remote
+  ansible.builtin.copy:
+    src: ../../on-client/.zshprofile
+    dest: ~/.zshprofile
+
+- name: Change shell to zsh
+  ansible.builtin.user:
+    name: leo
+    shell: /bin/zsh
+  become: yes

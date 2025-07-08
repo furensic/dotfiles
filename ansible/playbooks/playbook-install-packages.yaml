@@ -16,3 +16,4 @@
     - "package-installation/direnv-installation.yaml"
     - "package-installation/tldr-installation.yaml"
     - "package-installation/dust-installation.yaml"
+    - "package-installation/docker-installation.yaml"

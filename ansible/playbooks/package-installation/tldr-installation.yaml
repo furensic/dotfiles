@@ -3,3 +3,8 @@
     name: tldr
     state: present
   when: ansible_pkg_mgr == 'dnf5'
+
+
+- name: "Update TLDR cache"
+  ansible.builtin.command:
+    cmd: "tldr --update"
