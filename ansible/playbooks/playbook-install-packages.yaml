@@ -1,6 +1,7 @@
 - name: Install basic required packages for fedora linux
   ansible.builtin.include_tasks: "{{ item  }}"
   loop:
+    - "package-installation/git-installation.yaml"
     - "package-installation/zsh-installation.yaml"
     - "package-installation/lsd-installation.yaml"
     - "package-installation/fastfetch-installation.yaml"
