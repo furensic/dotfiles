@@ -1,0 +1,6 @@
+- name: Update TLDR page cache
+  hosts: all
+  tasks:
+    - name: "Update TLDR cache"
+      ansible.builtin.command:
+        cmd: "tldr --update"

@@ -17,6 +17,7 @@
       - wget
       - nano
       - direnv
+      - tldr
 
   tasks:
     - name: "Installing packages"
