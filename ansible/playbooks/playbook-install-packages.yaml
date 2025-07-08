@@ -15,3 +15,4 @@
     - "package-installation/nano-installation.yaml"
     - "package-installation/direnv-installation.yaml"
     - "package-installation/tldr-installation.yaml"
+    - "package-installation/dust-installation.yaml"
