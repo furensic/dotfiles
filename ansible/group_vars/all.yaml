@@ -18,6 +18,8 @@ packages_to_install:
   - tldr
   - zsh
   - nmap
+  - go
+  - python3-pip
 
 custom_packages_install:
   - dust

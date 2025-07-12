@@ -62,3 +62,11 @@ packages:
   nmap:
     RedHat: nmap
     Debian: nmap
+
+  go:
+    RedHat: go
+    Debian: go
+
+  python3-pip:
+    RedHat: python3-pip
+    Debian: python3-pip
