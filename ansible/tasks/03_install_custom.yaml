@@ -127,3 +127,40 @@
 - name: Update tldr cache
   ansible.builtin.command:
     cmd: "tldr --update"
+
+- name: Install navi from github release
+  when: "'navi' in custom_packages_install"
+  block:
+    - name: Check if navi is already present
+      ansible.builtin.stat:
+        path: /bin/navi
+      register: navi_check
+
+    - name: Install navi is not present
+      when: not navi_check.stat.exists
+      block:
+        - name: Get navi release info from github
+          ansible.builtin.uri:
+            url: "https://api.github.com/repos/denisidoro/navi/releases/latest"
+            body_format: json
+          register: navi_release
+
+        - name: Set download URL for navi
+          ansible.builtin.set_fact:
+            navi_download_url: "{{ navi_release.json.assets | selectattr('name', 'contains', 'x86_64-unknown-linux-musl') | map(attribute='browser_download_url') | first}}"
+
+        - name: Download and unarchive navi
+          ansible.builtin.unarchive:
+            src: "{{ navi_download_url }}"
+            dest: "/tmp/"
+            remote_src: yes
+            mode: '0755'
+
+        - name: Move navi binary to /bin
+          ansible.builtin.copy:
+            src: "/tmp/navi"
+            dest: "/bin/navi"
+            remote_src: yes
+            mode: '0755'
+            owner: root
+            group: root

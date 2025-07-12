@@ -20,7 +20,9 @@ packages_to_install:
   - nmap
   - go
   - python3-pip
+  - fd
 
 custom_packages_install:
   - dust
   - docker
+  - navi

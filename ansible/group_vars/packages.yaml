@@ -70,3 +70,7 @@ packages:
   python3-pip:
     RedHat: python3-pip
     Debian: python3-pip
+
+  fd:
+    RedHat: fd-find
+    Debian: fd-find
