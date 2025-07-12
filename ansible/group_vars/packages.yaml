@@ -58,3 +58,7 @@ packages:
   zsh:
     RedHat: zsh
     Debian: zsh
+
+  nmap:
+    RedHat: nmap
+    Debian: nmap
