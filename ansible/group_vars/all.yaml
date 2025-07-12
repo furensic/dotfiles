@@ -17,6 +17,7 @@ packages_to_install:
   - direnv
   - tldr
   - zsh
+  - nmap
 
 custom_packages_install:
   - dust
