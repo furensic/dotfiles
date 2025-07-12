@@ -1,0 +1,12 @@
+---
+- name: Main playbook for system configuration
+  hosts: all
+  become: true
+
+  vars_files:
+    - group_vars/all.yaml
+    - group_vars/packages.yaml
+
+  tasks:
+    - name: Run setup tasks
+      ansible.builtin.include_tasks: tasks/main.yaml

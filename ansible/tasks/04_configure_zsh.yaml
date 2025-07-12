@@ -1,0 +1,31 @@
+---
+- name: Configure zsh for user {{ target_user }}
+  become: true
+  become_user: "{{ target_user }}"
+  block:
+    - name: Clone zsh-autosuggestions
+      ansible.builtin.git:
+        repo: "https://github.com/zsh-users/zsh-autosuggestions"
+        dest: ~/.zsh/zsh-autosuggestions
+
+    - name: Clone zsh-syntax-highlighting
+      ansible.builtin.git:
+        repo: "https://github.com/zsh-users/zsh-syntax-highlighting.git"
+        dest: ~/.zsh/zsh-syntax-highlighting
+
+    - name: Clone .zshrc config to remote
+      ansible.builtin.copy:
+        src: ../../on-client/.zshrc
+        dest: ~/.zshrc
+
+    - name: Clone .zshprofile config to remote
+      ansible.builtin.copy:
+        src: ../../on-client/.zshprofile
+        dest: ~/.zshprofile
+
+    - name: Change shell to zsh
+      ansible.builtin.user:
+        name: "{{ target_user }}"
+        shell: /bin/zsh
+      become: true
+      become_user: root

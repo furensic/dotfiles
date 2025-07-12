@@ -1,0 +1,23 @@
+---
+target_user: leo
+
+packages_to_install:
+  - git
+  - lsd
+  - fastfetch
+  - htop
+  - iftop
+  - vim
+  - tmux
+  - duf
+  - fzf
+  - curl
+  - wget
+  - nano
+  - direnv
+  - tldr
+  - zsh
+
+custom_packages_install:
+  - dust
+  - docker

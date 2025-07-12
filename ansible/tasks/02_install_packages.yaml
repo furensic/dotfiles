@@ -1,0 +1,13 @@
+---
+- name: Update package cache (Debian)
+  ansible.builtin.apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  when: ansible_os_family == "Debian"
+
+- name : Install defined packages
+  ansible.builtin.package:
+    name: "{{ packages[item][ansible_os_family] }}"
+    state: present
+  loop: "{{ packages_to_install }}"
+  when: packages[item] is defined and packages[item][ansible_os_family] is defined

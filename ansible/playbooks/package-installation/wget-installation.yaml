@@ -1,5 +1,0 @@
-- name: Install wget
-  package:
-    name: wget
-    state: present
-  when: ansible_pkg_mgr == 'dnf5'

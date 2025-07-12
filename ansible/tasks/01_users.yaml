@@ -1,0 +1,11 @@
+---
+- name: Ensure group for user exists
+  ansible.builtin.group:
+    name: "{{ target_user }}"
+    state: present
+
+- name: Ensure user exists
+  ansible.builtin.user:
+    name: "{{ target_user }}"
+    group: "{{ target_user }}"
+    state: present

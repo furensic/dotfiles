@@ -1,0 +1,60 @@
+---
+packages:
+  git:
+    RedHat: git
+    Debian: git
+  
+  lsd:
+    RedHat: lsd
+    Debian: lsd
+  
+  fastfetch:
+    RedHat: fastfetch
+  
+  htop:
+    RedHat: htop
+    Debian: htop
+
+  iftop:
+    RedHat: iftop
+    Debian: iftop
+  
+  vim:
+    RedHat: vim
+    Debian: vim
+
+  tmux:
+    RedHat: tmux
+    Debian: tmux
+
+  duf:
+    RedHat: duf
+    Debian: duf
+  
+  fzf:
+    RedHat: fzf
+    Debian: fzf
+
+  curl:
+    RedHat: curl
+    Debian: curl
+
+  wget:
+    RedHat: wget
+    Debian: wget
+  
+  nano:
+    RedHat: nano
+    Debian: nano
+
+  direnv:
+    RedHat: direnv
+    Debian: direnv
+
+  tldr:
+    RedHat: tldr
+    Debian: tldr
+  
+  zsh:
+    RedHat: zsh
+    Debian: zsh

@@ -1,0 +1,16 @@
+---
+- name: 1. Setup users and groups
+  ansible.builtin.include_tasks: 01_users.yaml
+  tags: [always]
+
+- name: 2. Install standard packages
+  ansible.builtin.include_tasks: 02_install_packages.yaml
+  tags: ['packages', 'install']
+
+- name: 3. Install custom packages
+  ansible.builtin.include_tasks: 03_install_custom.yaml
+  tags: ['packages', 'custom_install']
+
+- name: 4. Configure zsh for target user
+  ansible.builtin.include_tasks: 04_configure_zsh.yaml
+  tags: ['config', 'zsh-config']

@@ -1,5 +1,0 @@
-- name: Install lsd
-  package:
-    name: lsd
-    state: present
-  when: ansible_pkg_mgr == 'dnf5'

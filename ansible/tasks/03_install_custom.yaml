@@ -1,0 +1,129 @@
+---
+- name: Install dust from github release
+  when: "'dust' in custom_packages_install"
+  block:
+    - name: Check if dust executable is already present
+      ansible.builtin.stat:
+        path: /bin/dust
+      register: dust_check
+
+    - name: Install dust if not present
+      when: not dust_check.stat.exists
+      block:
+        - name: Get latest dust release info
+          ansible.builtin.uri:
+            url: "https://api.github.com/repos/bootandy/dust/releases/latest"
+            body_format: json
+          register: dust_release
+
+        - name: Set download URL for dust
+          ansible.builtin.set_fact:
+            dust_download_url: "{{ dust_release.json.assets | selectattr('name', 'contains', 'x86_64-unknown-linux-gnu') | map(attribute='browser_download_url') | first }}"
+          
+        - name: Download and unarchive dust
+          ansible.builtin.unarchive:
+            src: "{{ dust_download_url }}"
+            dest: "/tmp/"
+            remote_src: yes
+            mode: '0755'
+
+        - name: Move dust binary to /bin
+          ansible.builtin.copy:
+            src: "/tmp/dust-{{ dust_release.json.tag_name}}-x86_64-unknown-linux-gnu/dust"
+            dest: "/bin/dust"
+            remote_src: yes
+            mode: '0755'
+            owner: root
+            group: root
+
+
+- name: Install Docker
+  when: "'docker' in custom_packages_install"
+  block:
+    - name: Install Docker for RedHat family
+      when: ansible_os_family == "RedHat"
+      block:
+        - name: Add Docker repository
+          ansible.builtin.get_url:
+            url: https://download.docker.com/linux/fedora/docker-ce.repo
+            dest: /etc/yum.repos.d/docker-ce.repo
+            mode: '0644'
+          
+        - name: Import Docker GPG key
+          ansible.builtin.rpm_key:
+            state: present
+            key: https://download.docker.com/linux/fedora/gpg
+            fingerprint: "060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35"
+        
+        - name: Install Docker packages
+          ansible.builtin.dnf:
+            name:
+              - docker-ce
+              - docker-ce-cli
+              - containerd.io
+              - docker-buildx-plugin
+              - docker-compose-plugin
+            state: present
+            nobest: yes # Add nobest to avoid issues with dependencies
+
+    - name: Install Docker for Debian family
+      when: ansible_os_family == "Debian"
+      block:
+        - name: Install prerequisites for Docker repository
+          ansible.builtin.apt:
+            name:
+              - ca-certificates
+              - curl
+            state: present
+            update_cache: yes
+
+        - name: Create directory for APT keyrings
+          ansible.builtin.file:
+            path: /etc/apt/keyrings
+            state: directory
+            mode: '0755'
+
+        - name: Add Docker's official GPG key
+          ansible.builtin.get_url:
+            url: https://download.docker.com/linux/debian/gpg
+            dest: /etc/apt/keyrings/docker.asc
+            mode: '0644'
+            force: yes
+
+        - name: Add Docker repository to Apt sources
+          ansible.builtin.apt_repository:
+            repo: "deb [arch=amd64 signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian {{ ansible_lsb.codename }} stable" # change this architecture to use dpkg --print-architecture
+            state: present
+            filename: docker
+
+        - name: Install Docker packages
+          ansible.builtin.apt:
+            name:
+              - docker-ce
+              - docker-ce-cli
+              - containerd.io
+              - docker-buildx-plugin
+              - docker-compose-plugin
+            state: present
+            update_cache: yes
+
+    - name: Ensure Docker service is started and enabled
+      ansible.builtin.service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Add target user to the docker group
+      ansible.builtin.user:
+        name: "{{ target_user }}"
+        groups: docker
+        append: yes
+
+- name: Install fastfetch for Debian
+  ansible.builtin.apt:
+    deb: "https://github.com/fastfetch-cli/fastfetch/releases/download/2.47.0/fastfetch-linux-amd64.deb"
+  when: ansible_os_family == "Debian"
+  
+- name: Update tldr cache
+  ansible.builtin.command:
+    cmd: "tldr --update"
