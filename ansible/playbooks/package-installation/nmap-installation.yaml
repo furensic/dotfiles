@@ -1,5 +1,0 @@
-- name: Install nmap
-  package:
-    name: nmap
-    state: present
-  when: ansible_pkg_mgr == 'dnf5'
