@@ -18,7 +18,7 @@ RPROMPT="%F{red}[%f%B%?%b%F{red}]%f - %F{red}[%f%B%w%b - %B%T%b%F{red}]%f - %F{r
 alias l="lsd -lAh --group-directories-first --header"
 alias df="duf"
 alias du="dust"
-alias ff="fzf | xargs -0 -o \$EDITOR"
+alias ff="fzf | xargs -o \$EDITOR"
 alias ping="gping"
 
 
