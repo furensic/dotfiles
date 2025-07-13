@@ -164,3 +164,115 @@
             mode: '0755'
             owner: root
             group: root
+
+- name: Install Onefetch
+  when: "'onefetch' in custom_packages_install"
+  block:
+    - name: Enable varlad/onefetch COPR repository
+      community.general.copr:
+        host: copr.fedorainfracloud.org
+        name: varlad/onefetch
+        state: enabled
+
+    - name: Install onefetch package
+      ansible.builtin.dnf:
+        name: onefetch
+        state: present
+
+- name: Install howdoi using pip
+  when: "'howdoi' in custom_packages_install"
+  block:
+    - name: Ensure pip is installed
+      ansible.builtin.dnf:
+        name: python3-pip
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Install howdoi package with pip
+      ansible.builtin.pip:
+        name: howdoi
+        state: present
+
+- name: Install jq from github release
+  when: "'jq' in custom_packages_install"
+  block:
+    - name: Check if jq executable is already present
+      ansible.builtin.stat:
+        path: /bin/jq
+      register: jq_check
+
+    - name: Install jq if not present
+      when: not jq_check.stat.exists
+      block:
+        - name: Get latest jq release info
+          ansible.builtin.uri:
+            url: "https://api.github.com/repos/jqlang/jq/releases/latest"
+            body_format: json
+          register: jq_release
+
+        - name: Set download URL for jq
+          ansible.builtin.set_fact:
+            jq_download_url: "{{ jq_release.json.assets | selectattr('name', 'contains', 'amd64') | map(attribute='browser_download_url') | first }}"
+          
+        - name: Download jq
+          ansible.builtin.get_url:
+            src: "{{ jq_download_url }}"
+            dest: "/bin/jq"
+            mode: '0755'
+
+- name: Install lazydocker from github release
+  when: "'lazydocker' in custom_packages_install"
+  block:
+    - name: Check if lazydocker executable is already present
+      ansible.builtin.stat:
+        path: /bin/lazydocker
+      register: lazydocker_check
+
+    - name: Ensure Go is installed
+      ansible.builtin.dnf:
+        name: golang
+        state: present
+      when: ansible_os_family == "RedHat"
+
+    - name: Install lazydocker if not present
+      when: not lazydocker_check.stat.exists
+      block:
+        - name: Get latest lazydocker release info
+          ansible.builtin.uri:
+            url: "https://api.github.com/repos/jesseduffield/lazydocker/releases/latest"
+            body_format: json
+          register: lazydocker_release
+
+        - name: Set download URL for lazydocker
+          ansible.builtin.set_fact:
+            lazydocker_download_url: "{{ lazydocker_release.json.assets | selectattr('name', 'contains', 'Linux_x86_64') | map(attribute='browser_download_url') | first }}"
+          
+        - name: Download and unarchive lazydocker
+          ansible.builtin.unarchive:
+            src: "{{ lazydocker_download_url }}"
+            dest: "/tmp/"
+            remote_src: yes
+            mode: '0755'
+
+        - name: Move lazydocker binary to /bin
+          ansible.builtin.copy:
+            src: "/tmp/lazydocker"
+            dest: "/bin/lazydocker"
+            remote_src: yes
+            mode: '0755'
+            owner: root
+            group: root
+
+- name: Install lazygit
+  when: "'lazygit' in custom_packages_install"
+  block:
+    - name: Enable atim/lazygit COPR repository
+      community.general.copr:
+        host: copr.fedorainfracloud.org
+        name: atim/lazygit
+        state: enabled
+
+    - name: Install lazygit package
+      ansible.builtin.dnf:
+        name: lazygit
+        state: present

@@ -21,8 +21,15 @@ packages_to_install:
   - go
   - python3-pip
   - fd
+  - hexyl
+  - progress
 
 custom_packages_install:
   - dust
   - docker
   - navi
+  - onefetch
+  - jq
+  - lazydocker
+  - lazygit
+  - howdoi

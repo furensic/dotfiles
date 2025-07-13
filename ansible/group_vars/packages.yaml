@@ -74,3 +74,9 @@ packages:
   fd:
     RedHat: fd-find
     Debian: fd-find
+
+  hexyl:
+    RedHat: hexyl
+
+  progress:
+    RedHat: progress
