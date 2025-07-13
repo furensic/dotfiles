@@ -84,3 +84,7 @@ packages:
   weechat:
     RedHat: weechat
     Debian: weechat
+
+  newsboat:
+    RedHat: newsboat
+    Debian: newsboat

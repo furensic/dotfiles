@@ -24,6 +24,7 @@ packages_to_install:
   - hexyl
   - progress
   - weechat
+  - newsboat
 
 custom_packages_install:
   - dust
@@ -34,3 +35,4 @@ custom_packages_install:
   - lazydocker
   - lazygit
   - howdoi
+  
