@@ -80,3 +80,7 @@ packages:
 
   progress:
     RedHat: progress
+
+  weechat:
+    RedHat: weechat
+    Debian: weechat

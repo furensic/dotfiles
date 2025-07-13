@@ -23,6 +23,7 @@ packages_to_install:
   - fd
   - hexyl
   - progress
+  - weechat
 
 custom_packages_install:
   - dust
