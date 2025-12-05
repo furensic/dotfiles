@@ -1,0 +1,11 @@
+[init]
+	defaultBranch = main
+[user]
+	email = info@furensic.eu
+	name = Leo
+	signingkey = 8BDF2D7D47D6CC5375C55BD939A9093A76792D7D
+[gpg]
+	program = gpg
+	format = openpgp
+[commit]
+	gpgsign = true

@@ -1,0 +1,22 @@
+require('config.globals')
+require('config.options')
+require('config.keymap')
+require('config.autocmd')
+require('config.lsp')
+require('config.colorscheme')
+
+local vim = vim
+local Plug = vim.fn['plug#']
+
+vim.call('plug#begin')
+Plug('miikanissi/modus-themes.nvim')
+Plug('nvim-lualine/lualine.nvim')
+Plug('nvim-tree/nvim-web-devicons')
+vim.call('plug#end')
+
+home = os.getenv("HOME")
+package.path = home .. "/.config/nvim/?.lua;" .. package.path
+
+require "common"
+require "statusline"
+require('lualine').get_config()
