@@ -12,8 +12,10 @@ alias df="duf"
 alias du="dust"
 alias ff="fzf | grep -o \$EDITOR"
 
+alias gs="git status"
 alias gaa="git add ."
 alias gcm="git commit"
+alias gpo="git push origin main"
 
 alias dcu="docker compose up"
 alias dcud="docker compose up -d"
