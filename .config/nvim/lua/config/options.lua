@@ -13,3 +13,7 @@ vim.opt.smartindent = true
 
 vim.opt.fileformat = "unix"
 
+vim.diagnostic.config({
+	virtual_lines = true,
+	virtual_text = false,
+})
