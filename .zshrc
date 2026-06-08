@@ -63,6 +63,7 @@ alias romvault='GTK_DATA_PREFIX= mono /mnt/myrient_data/emu/tool/ROMVault/ROMVau
 # PATH
 export GOPATH="$HOME/go"
 export PATH="$GOPATH/bin:/home/leo/.local/bin/lua-language-server/bin:./.local/bin/lua-language-server/bin/lua-language-server:~/.local/bin/lua-language-server/bin:~/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # source zsh plugins
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -77,3 +78,12 @@ eval "$(zoxide init zsh)"
 #eval "$(~/coding/retro-collect/cli/build/sillydb-cli --config ~/coding/retro-collect/cli/build/config.yaml completion zsh)"
 
 [ -f "/home/leo/.ghcup/env" ] && . "/home/leo/.ghcup/env" # ghcup-env
+
+
+# BEGIN opam configuration
+# This is useful if you're using opam as it adds:
+#   - the correct directories to the PATH
+#   - auto-completion for the opam binary
+# This section can be safely removed at any time if needed.
+[[ ! -r '/home/leo/.opam/opam-init/init.zsh' ]] || source '/home/leo/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+# END opam configuration
