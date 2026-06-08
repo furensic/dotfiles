@@ -46,6 +46,7 @@ alias ff="fzf | grep -o \$EDITOR"
 alias gs="git status"
 alias gaa="git add ."
 alias gcm="git commit"
+alias gcmnosign="git -c commit.gpgsign=false commit"
 alias gpo="git push origin main"
 
 alias dcu="docker compose up"
