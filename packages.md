@@ -14,6 +14,7 @@ following packages are expected:
 - neovim
 - vim
 - cargo/rust
+- bat
 
 ## Desktop
 
