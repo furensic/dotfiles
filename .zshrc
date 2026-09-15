@@ -1,4 +1,34 @@
 # ==================================================================
+# Vi mode indicator
+# ==================================================================
+
+function zle-keymap-select {
+    case $KEYMAP in
+        vicmd)
+            ZSH_VI_MODE="NORMAL"
+            ;;
+        viins|main)
+            ZSH_VI_MODE="INSERT"
+            ;;
+        *)
+            ZSH_VI_MODE="$KEYMAP"
+            ;;
+    esac
+
+    zle reset-prompt
+}
+
+function zle-line-init {
+    ZSH_VI_MODE="INSERT"
+    zle reset-prompt
+}
+
+zle -N zle-keymap-select
+zle -N zle-line-init
+
+ZSH_VI_MODE="INSERT"
+
+# ==================================================================
 # Options 
 # ==================================================================
 # 
@@ -27,14 +57,20 @@ setopt HIST_IGNORE_SPACE       # Don't record commands starting with a space
 # Prompt 
 # ==================================================================
 # 
+setopt PROMPT_SUBST
 PROMPT="%F{red}[%f%B%n%b%F{red}]%f%F{white}@%f%F{red}[%f%B%m%b%F{red}]%f%F{white}:%f%F{red}[%f%B%~%b%F{red}]%f
 %F{red}> %f"
-RPROMPT="%F{red}[%f%B%?%b%F{red}]%f - %F{red}[%f%B%w%b - %B%T%b%F{red}]%f - %F{red}[%f%B%h%b%F{red}]%f"
+
+
+RPROMPT='%F{red}[%f%B%?%b%F{red}]%f - %F{red}[%f%B%w%b - %B%T%b%F{red}]%f - %F{red}[%f%B%h%b%F{red}]%f - %B%F{green}[${ZSH_VI_MODE}]%f%b'
+
 
 # ==================================================================
 # Keybindings 
 # ==================================================================
 # 
+bindkey -v
+
 bindkey '^[[1;5C' forward-word       # Ctrl + Right Arrow
 bindkey '^[[1;5D' backward-word      # Ctrl + Left Arrow
 bindkey '^[[3;5~' kill-word          # Ctrl + Delete
